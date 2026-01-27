@@ -3,5 +3,5 @@ Website that converts currency values
 
 ## Features
 - Shows current currency values
-- Feature added 01/27/2026: Diaplays highest value in the last 24 hours
+- Feature added 01/27/2026: Displays highest value in the last 24 hours
 - Uses AwesomeApi 
