@@ -1,12 +1,6 @@
 import streamlit as st
-import requests
-
-
-def searchCurrency(currency):
-    url = f'https://economia.awesomeapi.com.br/last/{currency}-BRL'
-    req = requests.get(url)
-    value = req.json()[f"{currency}BRL"]["bid"] if req.status_code == 200 else "Moeda não encontrada!"
-    return f'R${value}'
+from services.greatestValue import searchCurrency
+from services.FormatBRL import format_brl
 
 st.title("Conversor de moedas")
 
@@ -23,14 +17,17 @@ if button:
         case 'DOLLAR':
             currency = searchCurrency('USD')
             st.success("VALOR ATUAL: ")
-            st.text(currency)
+            st.text(format_brl(currency["atual"]))
+            st.metric("Maior valor das ultimas 24 horas:", f"R${currency['max_24h']}")
     match currencyName:
         case 'EURO':
             currency = searchCurrency('EUR')
             st.success("VALOR ATUAL: ")
-            st.text(currency)
+            st.text(format_brl(currency["atual"]))
+            st.metric("Maior valor das ultimas 24 horas:", f"R${currency['max_24h']}")
     match currencyName:
         case 'BITCOIN':
             currency = searchCurrency('BTC')
             st.success("VALOR ATUAL: ")
-            st.text(currency)
+            st.text(format_brl(currency["atual"]))
+            st.metric("Maior valor das ultimas 24 horas:", f"R${currency['max_24h']}")
